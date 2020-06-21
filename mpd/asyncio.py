@@ -130,6 +130,10 @@ class MPDClient(MPDClientBase):
         self.__run_task = asyncio.Task(self.__run())
         self.__idle_task = asyncio.Task(self.__distribute_idle_results())
 
+    @property
+    def connected(self):
+        return self.__run_task is not None
+
     def disconnect(self):
         if self.__run_task is not None: # is None eg. when connection fails in .connect()
             self.__run_task.cancel()
